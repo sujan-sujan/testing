@@ -1,19 +1,23 @@
-pipeline{
+pipeline
+{
   agent any
-  stages{
-     stage("Mvn Build"){
-       steps{
+  stages
+  {
+     stage("Mvn Build")
+     {
+       steps
+       {
             sh "mvn clean package"
         }
-    }
-    stage("deploy-dev"){
-       steps{
-          sshagent(['deploy']) {
-            sh "chmod 777 /home/test/.jenkins -R"
-            sh "cp -rp /home/test/.jenkins/workspace/pipeline/target/*.jar /home/test/output"
-            sh "scp -rp /home/test/output/*.jar test@54.67.106.24:/home/test/test"
-          }
+     }
+    stage("deploy-dev")
+    {
+       steps
+       {
+            sh "chmod 777 /root/.jenkins -R"
+            sh "cp -rp /root/.jenkins/workspace/pipe1/target/*.jar /home/ec2-user/out"
+            sh "scp -rp /home/ec2-user/out/*.jar test@54.67.106.24:/home/test/test"
         }
-    }
-    }
+     }
+   }
 }
